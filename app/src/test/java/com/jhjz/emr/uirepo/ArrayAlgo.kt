@@ -13,7 +13,33 @@ class ArrayAlgo {
     fun run() {
 //        plusOne(intArrayOf(9, 9, 9, 9)).foreach()
 //        moveZeroes(intArrayOf(0,1,0,3,12)).foreach()
-        twoSum(intArrayOf(2, 7, 11, 15), 26).foreach()
+//        twoSum(intArrayOf(2, 7, 11, 15), 26).foreach()
+        print(singleNum(intArrayOf(4, 1, 1, 2, 2)))
+    }
+
+    /**
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+     * 利用hash
+     */
+    fun singleNum(intArray: IntArray): Int? {
+        val mutableMapOf = mutableMapOf<Int, Int>()
+        for (i in intArray) {
+            var count = mutableMapOf[i]
+            if (count == null) {
+                count = 1
+            } else {
+                count += 1
+            }
+
+            mutableMapOf[i] = count
+        }
+        mutableMapOf.forEach { (t, _) ->
+            val i = mutableMapOf[t]
+            if (i == 1) {
+                return t
+            }
+        }
+        return -1
     }
 
     /**
