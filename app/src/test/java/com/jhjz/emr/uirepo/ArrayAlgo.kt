@@ -13,7 +13,7 @@ class ArrayAlgo {
     fun run() {
 //        plusOne(intArrayOf(9, 9, 9, 9)).foreach()
 //        moveZeroes(intArrayOf(0,1,0,3,12)).foreach()
-        twoSum(intArrayOf(2, 7, 11, 15), 17).foreach()
+        twoSum(intArrayOf(2, 7, 11, 15), 26).foreach()
     }
 
     /**
