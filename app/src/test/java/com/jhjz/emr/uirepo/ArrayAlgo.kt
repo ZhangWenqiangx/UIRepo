@@ -1,6 +1,7 @@
 package com.jhjz.emr.uirepo
 
 import org.junit.Test
+import java.util.*
 
 /**
  * @describe : 数组相关算法题
@@ -14,7 +15,41 @@ class ArrayAlgo {
 //        plusOne(intArrayOf(9, 9, 9, 9)).foreach()
 //        moveZeroes(intArrayOf(0,1,0,3,12)).foreach()
 //        twoSum(intArrayOf(2, 7, 11, 15), 26).foreach()
-        print(singleNum(intArrayOf(4, 1, 1, 2, 2)))
+//        print(singleNum(intArrayOf(4, 1, 1, 2, 2)))
+        intersect(intArrayOf(4, 9, 5, 6), intArrayOf(9, 9, 8, 4, 6)).foreach()
+    }
+
+    /**
+     * 给定两个数组，编写一个函数来计算它们的交集。
+     * map记录第一个数组中每个数字出现的次数
+     * 遍历第二个数组 其中 获取值是否在map中存在 存在次数-1 记录这个数字
+     * 时间复杂度O(n+m) 空间复杂度O(min(n,m)) m,n两个数组长度
+     */
+    fun intersect(nums1: IntArray, nums2: IntArray): IntArray {
+
+        if (nums1.size > nums2.size)
+            return intersect(nums2, nums1)
+
+        val map = mutableMapOf<Int, Int>()
+        nums1.forEach {
+            map[it] = map.getOrDefault(it, 0) + 1
+        }
+        val result = IntArray(nums1.size)
+        var index = 0
+        nums2.forEach {
+            var count = map.getOrDefault(it, 0)
+            if (count > 0) {
+                result[index++] = it
+                count--
+                if (count > 0) {
+                    map[it] = count
+                } else {
+                    map.remove(it)
+                }
+            }
+        }
+
+        return result.copyOfRange(0, index)
     }
 
     /**
