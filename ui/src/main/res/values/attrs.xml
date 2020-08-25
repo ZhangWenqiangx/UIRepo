@@ -6,4 +6,14 @@
         <attr name="borderColor" format="color" />
         <attr name="duration" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="RoundClickView">
+        <attr name="uncheck_color" format="color" />
+        <!--选中后的基调颜色-->
+        <attr name="check_color" format="color" />
+        <!--选中后钩的颜色-->
+        <attr name="check_right_color" format="color" />
+        <!--圆的半径-->
+        <attr name="radius_size" format="dimension" />
+    </declare-styleable>
 </resources>

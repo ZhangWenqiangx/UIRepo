@@ -8,8 +8,14 @@
     tools:context=".MainActivity">
 
    <com.example.ui.widget.LoadingView
+       android:id="@+id/lv"
        android:layout_centerInParent="true"
        android:layout_width="35dp"
        android:layout_height="35dp"/>
+
+   <com.example.ui.widget.RoundClickView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_toRightOf="@id/lv" />
 
 </RelativeLayout>
