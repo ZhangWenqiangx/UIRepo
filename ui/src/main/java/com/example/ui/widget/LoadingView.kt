@@ -7,8 +7,9 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.example.ui.R
+import kotlin.math.sqrt
 
 /**
  * @describe :
@@ -19,7 +20,7 @@ class LoadingView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : androidx.appcompat.widget.AppCompatImageView(context, attrs, defStyleAttr) {
 
     var mPaint: Paint? = null
     var mRectf: RectF? = null
@@ -77,6 +78,7 @@ class LoadingView @JvmOverloads constructor(
         valueAnimator = ValueAnimator.ofFloat(0f, maxRotate)
         valueAnimator!!.apply {
             duration = this@LoadingView.duration.toLong()
+            interpolator = AccelerateDecelerateInterpolator()
             addUpdateListener {
                 val value = it.animatedValue as Float
                 startAngle = -90 + value
@@ -104,6 +106,28 @@ class LoadingView @JvmOverloads constructor(
             height / 2 - radius + borderWidth / 2.toFloat(),
             width / 2 + radius - borderWidth / 2.toFloat(),
             height / 2 + radius - borderWidth / 2.toFloat()
+        )
+
+        // 计算要设置的padding，防止图片的会压到圆上
+        calculateCirclePadding(Math.max(width/2, height/2))
+    }
+
+    /**
+     * 计算最小padding
+     *
+     * @param radius 最大的半径，因为不保证一定是正方形，所以用最大的半径来进行计算
+     */
+    private fun calculateCirclePadding(radius: Int) {
+        // 得到边长院内正方形的边长的一半
+        val rectLength = sqrt((radius * radius shr 1.toDouble().toInt()).toDouble()).toInt()
+        // 用现在的padding和已经设置的padding进行比较
+        // padding的最小值是圆的半径减去radius
+        val minPadding = radius - rectLength
+        setPadding(
+            if (paddingLeft < minPadding) minPadding else paddingLeft,
+            if (paddingTop < minPadding) minPadding else paddingTop,
+            if (paddingRight < minPadding) minPadding else paddingRight,
+            if (paddingBottom < minPadding) minPadding else paddingBottom
         )
     }
 
