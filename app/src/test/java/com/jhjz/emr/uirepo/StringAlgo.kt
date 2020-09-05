@@ -1,6 +1,7 @@
 package com.jhjz.emr.uirepo
 
 import org.junit.Test
+import java.util.*
 
 /**
  * @describe :
@@ -77,6 +78,54 @@ class StringAlgo {
             }
         }
         return true
+    }
+
+    /**
+     * 有效的字母异位词
+    给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+    示例 1:
+    输入: s = "anagram", t = "nagaram"
+    输出: true
+
+    示例 2:
+    输入: s = "rat", t = "car"
+    输出: false
+    说明:
+    你可以假设字符串只包含小写字母。
+
+    进阶:
+    如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+     */
+    fun isAnagram(s: String, t: String): Boolean = s.sortStr() == t.sortStr()
+
+    /**
+     * O(nlogn)
+     */
+    private fun String.sortStr(): String {
+        val toCharArray = this.toCharArray()
+        Arrays.sort(toCharArray)
+        return toCharArray.contentToString()
+    }
+
+    /**
+     * 给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+     * map记录charAt,number
+     * get number
+     */
+    fun firstUnitChar(str: String): Int {
+        val map = mutableMapOf<Char, Int>()
+        val n = str.length
+        for (i in 0 until n) {
+            map[str[i]] = map.getOrDefault(str[i], 0) + 1
+        }
+
+        for (i in 0 until n) {
+            if (map[str[i]] == 1) {
+                return i
+            }
+        }
+        return -1
     }
 
 
