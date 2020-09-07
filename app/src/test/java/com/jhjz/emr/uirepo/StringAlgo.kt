@@ -16,6 +16,75 @@ class StringAlgo {
     }
 
     /**
+     * 编写一个函数来查找字符串数组中的最长公共前缀。
+    如果不存在公共前缀，返回空字符串 ""。
+
+    示例 1:
+    输入: ["flower","flow","flight"]
+    输出: "fl"
+     *
+     * 取第一个String为默认值 依次判断判断后续String与默认str前几位相同
+     * 截取相同继续向后判断 如果为空提前结束
+     * 时间复杂度O(n) n为所有字符串长度 空间复杂度O()
+     */
+    fun longestCommonPrefix(strs: Array<String>): String {
+        if (strs.isEmpty()) return ""
+        var result = strs[0]
+        for (i in 1 until strs.size) {
+            var j = 0
+            while (j < result.length && j < strs[i].length) {
+                if (result[j] != strs[i][j]) break
+                j++
+            }
+            result = result.substring(0, j)
+            if (result.isEmpty()) return ""
+        }
+        return result
+    }
+
+
+    /**
+     * 外观数列
+     * 例子：
+     * 1.     1
+    2.     11
+    3.     21
+    4.     1211
+    5.     111221
+     */
+    fun countAndSay(n: Int): String {
+        //记录结果 初始值为1
+        var result = "1"
+        //从第二位到n 循环 除去默认值
+        for (i in 2..n) {
+            //拼接数据
+            val builder = StringBuilder()
+
+            var pre = result[0]
+
+            var count = 1
+            for (j in 1 until result.length) {
+                //获取下一位 用来比较
+                var next = result[j]
+                //相同代表这个数字出现过两次 做记录
+                if (pre == next) {
+                    count++
+                } else {
+
+                    builder.append(count).append(pre)
+                    count = 1
+                    pre = next
+                }
+            }
+            //次数+值
+            builder.append(count).append(pre)
+            result = builder.toString()
+        }
+
+        return result
+    }
+
+    /**
      * 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
     不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
     你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
@@ -29,7 +98,7 @@ class StringAlgo {
     输入：["H","a","n","n","a","h"]
     输出：["h","a","n","n","a","H"]
 
-     利用双指针 替换左一位 和 右一位
+    利用双指针 替换左一位 和 右一位
      */
     fun reverseString(charArray: CharArray): CharArray {
         var start = 0
