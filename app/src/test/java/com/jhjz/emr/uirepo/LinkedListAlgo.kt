@@ -14,6 +14,33 @@ class LinkedListAlgo {
     }
 
     /**
+     * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+    示例：
+    输入：1->2->4, 1->3->4
+    输出：1->1->2->3->4->4
+     */
+    fun mergeTwoLists(l1: ListNode?, l2: ListNode?): ListNode? {
+        var l1 = l1
+        var l2 = l2
+        val preNode = ListNode(-1)
+        var preHead = preNode
+
+        while (l1 != null && l2 != null) {
+            if (l1.`val` <= l2.`val`) {
+                preHead.next = l1
+                l1 = l1.next
+            } else {
+                preHead.next = l2
+                l2 = l2.next
+            }
+            preHead = preHead.next!!
+        }
+
+        preHead.next = l1 ?: l2
+        return preNode.next
+    }
+
+    /**
      * 删除链表的倒数第N个节点
     给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
 
