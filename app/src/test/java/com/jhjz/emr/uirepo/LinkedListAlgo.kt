@@ -14,6 +14,31 @@ class LinkedListAlgo {
     }
 
     /**
+     *请判断一个链表是否为回文链表。
+     * 先把链表转为数组 然后双指针判断是否回文
+     */
+    fun isPalindrome(head: ListNode?): Boolean {
+        val intArr = mutableListOf<Int>()
+
+        var preHead = head
+        while (preHead != null) {
+            intArr.add(preHead.`val`)
+            preHead = preHead.next
+        }
+
+        var start = 0
+        var end = intArr.size-1
+        while (start < end) {
+            if (intArr[start] != intArr[end]) {
+                return false
+            }
+            start++
+            end--
+        }
+        return true
+    }
+
+    /**
      * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
     示例：
     输入：1->2->4, 1->3->4
