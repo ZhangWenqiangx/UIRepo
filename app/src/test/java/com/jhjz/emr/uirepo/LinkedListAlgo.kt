@@ -14,6 +14,25 @@ class LinkedListAlgo {
     }
 
     /**
+     *给定一个链表，判断链表中是否有环。
+     * 利用快慢两个指针 如果有环 快指针一定会追上慢指针
+     * 时间复杂度O(n) 空间O(1)
+     */
+    fun hasCycle(head: ListNode?): Boolean {
+        if (head?.next == null)
+            return false
+        var slow = head
+        var fast = head.next
+        while (slow != fast) {
+            if (fast?.next == null)
+                return false
+            slow = slow!!.next
+            fast = fast.next!!.next
+        }
+        return true
+    }
+
+    /**
      *请判断一个链表是否为回文链表。
      * 先把链表转为数组 然后双指针判断是否回文
      */
